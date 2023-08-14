@@ -3,7 +3,8 @@ import Axios from "axios";
 export const httpService = {
 	get,
 };
-const BASE_URL = "//localhost:3030/api/";
+// const BASE_URL = "//localhost:3030/api/";
+const BASE_URL = "https://code-app-dszr.onrender.com/api/";
 
 const axios = Axios.create({
 	baseURL: BASE_URL,

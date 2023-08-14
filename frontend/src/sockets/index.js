@@ -1,6 +1,7 @@
 import io from "socket.io-client";
 
-const socket = io("http://localhost:3030");
+const socket = io("https://code-app-dszr.onrender.com/");
+// const socket = io("http://localhost:3030");
 
 const setupSocketListeners = (id, onUpdatedCode, onSetReadOnly) => {
 	console.log("connecting", socket.connected);
