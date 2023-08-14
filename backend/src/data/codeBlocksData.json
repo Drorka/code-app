@@ -1,0 +1,32 @@
+[
+	{
+		"title": "Reverse a String",
+		"instructions": "Write a function to reverse a given string.",
+		"code": "function reverseString(str) {\n\n}",
+		"solution": "function reverseString(str) {\n\treturn str.split('').reverse().join('');\n}"
+	},
+	{
+		"title": "Factorial",
+		"instructions": "Write a function to calculate the factorial of a positive integer.",
+		"code": "function factorial(n) {\n\n}",
+		"solution": "function factorial(n) {\n\tif (n === 0 || n === 1) {\n\t\treturn 1;\n\t}\n\treturn n * factorial(n - 1);\n}"
+	},
+	{
+		"title": "Sum of Even Numbers",
+		"instructions": "Write a function to find the sum of all even numbers from 1 to a given positive integer.",
+		"code": "function sumOfEvenNumbers(n) {\n\n}",
+		"solution": "function sumOfEvenNumbers(n) {\n\tlet sum = 0;\n\tfor (let i = 2; i <= n; i += 2) {\n\t\tsum += i;\n\t}\n\treturn sum;\n}"
+	},
+	{
+		"title": "Palindrome Check",
+		"instructions": "Write a function to check if a given string is a palindrome.",
+		"code": "function isPalindrome(str) {\n\n}",
+		"solution": "function isPalindrome(str) {\n\tconst cleanedStr = str.toLowerCase().replace(/[^a-z0-9]/g, '');\n\tconst reversedStr = cleanedStr.split('').reverse().join('');\n\treturn cleanedStr === reversedStr;\n}"
+	},
+	{
+		"title": "Fibonacci Sequence",
+		"instructions": "Write a function to generate the first n numbers of the Fibonacci sequence.",
+		"code": "function fibonacci(n) {\n\n}",
+		"solution": "function fibonacci(n) {\n\tconst sequence = [0, 1];\n\tfor (let i = 2; i < n; i++) {\n\t\tsequence[i] = sequence[i - 1] + sequence[i - 2];\n\t}\n\treturn sequence;\n}"
+	}
+]
