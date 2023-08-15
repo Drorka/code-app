@@ -21,12 +21,12 @@ app.use(
 	})
 );
 
-app.use(express.static(path.join(__dirname, "frontend/public")));
+app.use(express.static(path.join(__dirname, "../../frontend/public")));
 
 app.use("/api", codeBlocksRoutes);
 
 app.get("*", (req, res) => {
-	res.sendFile(path.join(__dirname, "frontend/public", "index.html"));
+	res.sendFile(path.join(__dirname, "../../frontend/public", "index.html"));
 });
 
 mongoConnect(() => {
