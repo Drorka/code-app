@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-
+const path = require("path");
 const cors = require("cors");
 const codeBlocksRoutes = require("./routes/codeBlocks.routes");
 const { mongoConnect } = require("./db");
@@ -21,7 +21,13 @@ app.use(
 	})
 );
 
+app.use(express.static(path.join(__dirname, "frontend/public")));
+
 app.use("/api", codeBlocksRoutes);
+
+app.get("*", (req, res) => {
+	res.sendFile(path.join(__dirname, "frontend/public", "index.html"));
+});
 
 mongoConnect(() => {
 	const PORT = process.env.PORT || 3030;
