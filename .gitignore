@@ -1,6 +1,6 @@
 # Front-end build output
 /build
-/dist
+# /dist
 
 # Node.js dependencies
 /node_modules
