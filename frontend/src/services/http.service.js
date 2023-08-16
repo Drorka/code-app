@@ -4,13 +4,9 @@ export const httpService = {
 	get,
 };
 
-const BASE_URL =
-	import.meta.env.VITE_ENV === "production"
-		? import.meta.env.VITE_BASE_API_PROD
-		: import.meta.env.VITE_BASE_API_DEV;
-
-// const BASE_URL = "//localhost:3030/api/";
-// const BASE_URL = "https://code-app-dszr.onrender.com/api/";
+const BASE_URL = import.meta.env.DEV
+	? import.meta.env.VITE_BASE_API_DEV
+	: import.meta.env.VITE_BASE_API_PROD;
 
 const axios = Axios.create({
 	baseURL: BASE_URL,

@@ -1,9 +1,11 @@
 import io from "socket.io-client";
 
-const BASE_URL =
-	import.meta.env.VITE_ENV === "production"
-		? import.meta.env.VITE_BASE_URL_PROD
-		: import.meta.env.VITE_BASE_URL_DEV;
+const BASE_URL = import.meta.env.DEV
+	? import.meta.env.VITE_BASE_URL_DEV
+	: import.meta.env.VITE_BASE_URL_PROD;
+
+console.log("socket VITE_ENV", import.meta.env.VITE_ENV);
+console.log("socket BASE_URL", BASE_URL);
 
 const socket = io(BASE_URL);
 
