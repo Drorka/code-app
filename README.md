@@ -4,6 +4,7 @@ Welcome to Code App! This web app allows you to collaboratively edit and submit 
 
 The app is built with **React.js, Redux, Monaco Editor, Socket.io, Tailwind CSS, Node.js, Express.js, REST API, MongoDB, Mongoose**.
 
+[Check it out here!](https://code-app-dszr.onrender.com)
 
 ## Features
 
