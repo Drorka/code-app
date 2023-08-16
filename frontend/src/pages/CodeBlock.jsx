@@ -21,10 +21,6 @@ function CodeBlock() {
 	const onUpdatedCode = useCallback(
 		(updatedCode) => {
 			if (isReadOnly) {
-				console.log(
-					"Setting up code-updated listener (Read-Only Mode)",
-					isReadOnly
-				);
 				setCodeBlock((prevCodeBlock) => ({
 					...prevCodeBlock,
 					code: updatedCode,
@@ -39,19 +35,16 @@ function CodeBlock() {
 		setupSocketListeners(isReadOnly ? onUpdatedCode : null, onSetReadOnly);
 
 		return () => {
-			console.log("use effect return");
 			disconnectSocket();
 		};
 	}, [id, isReadOnly, onUpdatedCode]);
 
 	function onSetReadOnly(readOnly) {
-		console.log("Setting read-only mode to", readOnly);
 		setIsReadOnly(readOnly);
 	}
 
 	function handleEditorChange(value) {
 		if (!isReadOnly) {
-			console.log("editor change", isReadOnly);
 			setCodeBlock((prevCodeBlock) => ({
 				...prevCodeBlock,
 				code: value,
