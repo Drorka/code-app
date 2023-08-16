@@ -6,9 +6,7 @@ async function getAllCodeBlocks(req, res) {
 		res.json(codeBlocks);
 	} catch (err) {
 		console.error(err);
-		res
-			.status(500)
-			.json({ message: "An error occurred while getting code blocks." });
+		res.status(500).json({ message: "Internal server error" });
 	}
 }
 
