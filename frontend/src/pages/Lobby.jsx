@@ -11,7 +11,7 @@ function Lobby() {
 	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
-		const fetchData = async () => {
+		async function fetchData() {
 			setIsLoading(true);
 			try {
 				const data = await codeBlocksService.getCodeBlocks();
@@ -21,9 +21,9 @@ function Lobby() {
 			} finally {
 				setIsLoading(false);
 			}
-		};
+		}
 		fetchData();
-	}, []);
+	}, [dispatch]);
 
 	if (isLoading) return <Loading />;
 
