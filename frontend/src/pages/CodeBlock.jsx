@@ -1,47 +1,63 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Editor from "@monaco-editor/react";
-import { setupSocketListeners, emitCodeChange } from "../sockets/index"; // Update the import path
 import CongratulationsModal from "../components/CongratulationsModal";
+import {
+	connectSocket,
+	setupSocketListeners,
+	disconnectSocket,
+	emitCodeChange,
+} from "../sockets/socket";
 
 function CodeBlock() {
 	const { id } = useParams();
 	const codeBlocks = useSelector((state) => state.codeBlocks);
 	const currentCodeBlock = codeBlocks.find((block) => block._id === id);
 	const [codeBlock, setCodeBlock] = useState(currentCodeBlock);
-	const [isReadOnly, setIsReadOnly] = useState();
+	const [isReadOnly, setIsReadOnly] = useState(true);
 	const [isCorrect, setIsCorrect] = useState(false);
 
+	const onUpdatedCode = useCallback(
+		(updatedCode) => {
+			if (isReadOnly) {
+				console.log(
+					"Setting up code-updated listener (Read-Only Mode)",
+					isReadOnly
+				);
+				setCodeBlock((prevCodeBlock) => ({
+					...prevCodeBlock,
+					code: updatedCode,
+				}));
+			}
+		},
+		[isReadOnly]
+	);
+
 	useEffect(() => {
-		function onUpdatedCode(updatedCode) {
-			console.log("Setting up code-updated listener");
-			setCodeBlock((prevCodeBlock) => ({
-				...prevCodeBlock,
-				code: updatedCode,
-			}));
-		}
+		connectSocket(id);
+		setupSocketListeners(isReadOnly ? onUpdatedCode : null, onSetReadOnly);
 
-		function onSetReadOnly(readOnly) {
-			console.log("Setting read-only mode to", readOnly);
-			setIsReadOnly(readOnly);
-		}
+		return () => {
+			console.log("use effect return");
+			disconnectSocket();
+		};
+	}, [id, isReadOnly, onUpdatedCode]);
 
-		const cleanupSocketListeners = setupSocketListeners(
-			id,
-			onUpdatedCode,
-			onSetReadOnly
-		);
-
-		return cleanupSocketListeners;
-	}, [id]);
+	function onSetReadOnly(readOnly) {
+		console.log("Setting read-only mode to", readOnly);
+		setIsReadOnly(readOnly);
+	}
 
 	function handleEditorChange(value) {
-		setCodeBlock((prevCodeBlock) => ({
-			...prevCodeBlock,
-			code: value,
-		}));
-		emitCodeChange(id, value);
+		if (!isReadOnly) {
+			console.log("editor change", isReadOnly);
+			setCodeBlock((prevCodeBlock) => ({
+				...prevCodeBlock,
+				code: value,
+			}));
+			emitCodeChange(id, value);
+		}
 	}
 
 	function submitCode() {
@@ -71,7 +87,7 @@ function CodeBlock() {
 				</div>
 				<div className="bg-white rounded shadow-md flex-grow p-4 w-full md:w-2/3 overflow-hidden  relative">
 					<h1 className="text-2xl font-bold mb-4">Code Editor</h1>
-					<div className="overflow-y-auto h-[80%]">
+					<div className="overflow-y-auto h-[80%] pt-4">
 						<Editor
 							theme="vs-dark"
 							defaultLanguage="javascript"
