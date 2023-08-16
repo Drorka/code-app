@@ -79,8 +79,8 @@ function CodeBlock() {
 					<p>{codeBlock.instructions}</p>
 				</div>
 				<div className="bg-white rounded shadow-md flex-grow p-4 w-full md:w-2/3 overflow-hidden  relative">
-					<h1 className="text-2xl font-bold mb-4">Code Editor</h1>
-					<div className="overflow-y-auto h-[80%] pt-4">
+					<h1 className="text-2xl font-bold">Code Editor</h1>
+					<div className="overflow-y-auto h-[80%] ">
 						<Editor
 							theme="vs-dark"
 							defaultLanguage="javascript"
@@ -88,6 +88,7 @@ function CodeBlock() {
 							value={codeBlock.code}
 							onChange={handleEditorChange}
 							options={{ readOnly: isReadOnly }}
+							className="pt-8"
 						/>
 					</div>
 					<button
